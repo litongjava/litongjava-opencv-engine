@@ -1,0 +1,12 @@
+[Unit]
+Description=ip
+After=network.target
+[Service]
+ExecStart=/opt/jfinal/litongjava-jfinal-web-cms/litongjava-jfinal-web-cms start
+ExecStop=/opt/jfinal/litongjava-jfinal-web-cms/litongjava-jfinal-web-cms.sh stop
+ExecReload=/opt/jfinal/litongjava-jfinal-web-cms/litongjava-jfinal-web-cms.sh restart
+Type=forking
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

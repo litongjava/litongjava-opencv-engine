@@ -1,0 +1,129 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.cctv-logo {
+    height: 58px;
+    width: 62px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+}
+
+.login-background {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-image: url(../theme/3.jpg);
+}
+
+.login-box {
+    display: flex;
+    flex-direction: row;
+    width: 30%;
+    min-width: 600px;
+    min-height: 300px;
+    height: 35%;
+    position: absolute;
+    top: 30%;
+    left: calc(50% - 300px);
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.4);
+    transition: background-color .3s ease;
+    box-shadow: 0px 0px 20px #5e5f6d;
+}
+
+.login-box .login-font {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    background: rgba(95, 103, 144, 0);
+    opacity: 0.9;
+    border-radius: 15px 0 0 15px;
+}
+
+.login-box .login-font .font {
+    margin-top: 10px;
+    color: #ffffff;
+}
+
+.login-box .form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1em;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 0 15px 15px 0;
+    border: 1px solid rgba(95, 103, 144, 1);
+    justify-content: space-around;
+}
+
+.login-box .form .title {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    color: #403f5a;
+    margin-bottom: 10px;
+    height: 70px;
+    line-height: 70px;
+}
+
+input {
+    width: 100%;
+    height: 3em;
+    line-height: 3em;
+    margin-top: 0.1em;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+input::-webkit-input-placeholder {
+    color: #1d1d1d;
+    transition: color .2s;
+}
+
+input:focus::-webkit-input-placeholder {
+    color: transparent;
+}
+
+.icon-input {
+    position: relative;
+    height: 55px;
+    margin-top: 10px;
+}
+
+.icon-input i {
+    position: absolute;
+    left: 0;
+    top: 1.2em;
+    width: 20px;
+    height: 20px;
+}
+
+.icon-input input {
+    text-indent: 2em;
+}
+
+button {
+    padding: 0.6em 2em;
+    border: 0;
+    background: #316ea5;
+    cursor: pointer;
+    color: #ffffff;
+    outline: 0;
+    margin: 0;
+    -webkit-transition: .1s;
+    border-radius: 20px;
+}
+
+button:hover {
+    background: #234d73;
+}

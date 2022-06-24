@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>用户列表页</title>
+<link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.5/css/layui.css" />
+<link rel="stylesheet" href="../../resources/css/esunward.css" />
+<script type="text/javascript" src="../../resources/library/esunward/esunward.js"></script>
+<script src="https://www.layuicdn.com/layui-v2.5.5/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="https://www.layuicdn.com/layui-v2.5.5/extends/treeGrid.js"></script>
+</head>
+
+<body class="pd5">
+<div style="position:absolute;top:10px;bottom:20px;left:15px;right:15px;">
+  <table class="layui-hide" id="table" lay-filter="table"></table>
+</div>
+<script>
+$(function() {
+  var cols = [{
+    title: '序号',
+    width: 60,
+    type: 'numbers',
+    align: 'center'
+  }, {
+    title: '菜单名称',
+    field: 'name'
+  }, {
+    title: '菜单链接',
+    align: 'center',
+    field: 'href'
+  }, {
+    title: '菜单权限',
+    align: 'center',
+    field: 'permission'
+  }, {
+    title: '菜单排序',
+    align: 'center',
+    field: 'sort'
+  }];
+  if(E.hasPermission('system:menu:edit') || E.hasPermission('system:menu:remove')) {
+    cols.push({
+      title: '操作',
+      align: 'center',
+      templet: function(row) {
+        var html = '';
+        if(E.hasPermission('system:menu:edit')) {
+          html += '<a class="layui-btn layui-btn-sm btn-menu-add" href="system-menu-form.html?pid=' + row.id + '">添加下级菜单</a>';
+          if(row.id != '0') {
+            html += '<a class="layui-btn layui-btn-sm btn-menu-edit" href="system-menu-form.html?id=' + row.id + '">编辑</a>';
+          }
+
+        }
+        if(row.id != '0' && E.hasPermission('system:menu:remove')) {
+          html += '<a data-id="' + row.id + '" class="layui-btn layui-btn-sm btn-menu-remove">删除</a>';
+        }
+        return html;
+      }
+    })
+  }
+  var table = layui.treeGrid.render({
+    id: 'table',
+    elem: '#table',
+    url: E.config.server + "/system/menu/selectMenulist",
+    method: 'post',
+    title: '菜单管理',
+    treeShowName: 'name',
+    idField: 'id',
+    treeId: 'id',
+    treeUpId: 'parentId',
+    iconOpen: false,
+    isPage: false,
+    cols: [cols]
+  });
+});
+$("body").on('click', ".btn-menu-remove", function() {
+  var menuId = $(this).data('id');
+  layui.layer.confirm('是否删除此菜单？', {
+    title: "删除菜单"
+  }, function() {
+    E.ajax({
+      url: E.config.server + "/system/menu/remove",
+      data: {
+        id: menuId
+      },
+      success: function(isSuccess) {
+        if(isSuccess) {
+          layui.layer.msg('删除成功', {
+            time: 800
+          }, function() {
+            layui.treeGrid.reload('table');
+          });
+        } else {
+          layui.layer.msg('删除失败', {
+            time: 800
+          }, function() {
+            layui.treeGrid.reload('table');
+          });
+        }
+      },
+      exception: function(code, message) {
+        layui.layer.msg('删除失败，' + message, {
+          time: 800
+        }, function() {
+          layui.treeGrid.reload('table');
+        });
+      }
+    });
+  })
+});
+</script>
+</body>
+
+</html>

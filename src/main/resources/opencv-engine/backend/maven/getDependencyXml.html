@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script src="../../js/jquery-1.9.0-min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<div>
+  <label>jarNames:</label>
+  <textarea rows="50" cols="40" id='jarNames'></textarea>
+  <button onclick="send()">发送</button>
+    <label>response:</label>
+  <textarea rows="50" cols="60" id="responseData"></textarea>
+</div>
+
+</body>
+<script type="text/javascript">
+function send() {
+  var url = projectName + "/maven/pom/getDependencyXml";
+  var data = 'jarNames=' + $("#jarNames").val();
+  $.ajax({
+    type: "post",
+    url: url,
+    data: data,
+    async: true,
+    success: function(resp) {
+      if(resp.code==0) {
+        var responseData="";
+        for(var i=0;i<resp.data.length;i++){
+           responseData+=(resp.data[i]+'\n');
+        }
+        $("#responseData").val(responseData);
+      }
+    }
+  });
+}
+</script>
+
+</html>

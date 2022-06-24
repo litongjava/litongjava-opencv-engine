@@ -1,0 +1,124 @@
+<html>
+
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.5/css/layui.css" />
+<script src="https://www.layuicdn.com/layui-v2.5.5/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/user.js" type="text/javascript" charset="utf-8"></script>
+<title></title>
+<style type="text/css">
+.layui-tab-title .layui-this {
+  /**蓝底白字*/
+  background-color: #0078D7;
+  color: #FEFEFE;
+  font-weight: bold;
+}
+
+.layui-layout-right {
+  width: 100px;
+}
+
+.layui-tab {
+  margin-left: 190px;
+  margin-top: 0px;
+}
+
+.layui-tab-title {
+  height: 45px;
+}
+
+.nav-menu dd {
+  margin-left: 20px;
+}
+</style>
+<script type="text/javascript">
+document.title = projectTitle;
+</script>
+</head>
+
+<body>
+<!--右边菜单-->
+<ul class="layui-nav layui-nav-tree layui-nav-side layui-layout-left" id="treeMenu">
+  <li class="layui-nav-item layui-nav-itemed">
+    <a href="javascript:;">后台管理</a>
+  </li>
+  <li class="layui-nav-item layui-nav-itemed">
+    <a href="javascript:;">系统日志</a>
+    <dl class="layui-nav-child nav-menu">
+      <dd>
+        <a href="#" data-id="11" data-url="backend/t_log_mail_send/t_log_mail_send_list.html" data-type="tabAdd" class="nav-menu-item">邮件发送记录</a>
+      </dd>
+      <dd>
+        <a href="#" data-id="12" data-url="backend/t_log_db_connected/t_log_db_connected_list.html" data-type="tabAdd" class="nav-menu-item">数据库连接记录</a>
+      </dd>
+    </dl>
+  </li>
+  <li class="layui-nav-item layui-nav-itemed">
+    <a href="javascript:;">系统设置</a>
+    <dl class="layui-nav-child nav-menu">
+      <dd>
+        <a href="#" data-id="21" data-url="backend/t_cron4j_task_info/t_cron4j_task_info_list.html" data-type="tabAdd" class="nav-menu-item">定时任务管理</a>
+      </dd>
+      <dd>
+        <a href="#" data-id="22" data-url="backend/mail_receiver/mail_receiver_list.html" data-type="tabAdd" class="nav-menu-item">报警接收邮件</a>
+      </dd>
+      <dd>
+        <a href="#" data-id="23" data-url="backend/t_db_connect_info/t_db_connect_info_list.html" data-type="tabAdd" class="nav-menu-item">检测数据库地址</a>
+      </dd>
+    </dl>
+  </li>
+
+  <li class="layui-nav-item layui-nav-itemed">
+    <a href="javascript:;">功能测试</a>
+    <dl class="layui-nav-child nav-menu">
+      <dd>
+        <a href="#" data-id="31" data-url="backend/test_db_connect/test_db_connect.html" data-type="tabAdd" class="nav-menu-item">功能测试</a>
+      </dd>
+    </dl>
+  </li>
+
+  <li class="layui-nav-item layui-nav-itemed">
+    <a href="javascript:;">常用功能</a>
+    <dl class="layui-nav-child nav-menu">
+      <dd>
+        <a href="#" data-id="41" data-url="backend/maven/getDependencyXml.html" data-type="tabAdd" class="nav-menu-item">getDependencyXml</a>
+      </dd>
+    </dl>
+  </li>
+</ul>
+<div class="layui-tab site-demo-button" id="nav_xbs_tab" lay-filter="xbs_tab" lay-allowclose="true">
+  <ul class="layui-tab-title" id="xbs_tab"></ul>
+  <div class="layui-tab-content"></div>
+</div>
+
+<ul class="layui-nav layui-nav-tree layui-layout-right" lay-filter="">
+  <li class="layui-nav-item" lay-unselect="">
+    <a href="javascript:;">管理员</a>
+    <dl class="layui-nav-child">
+      <!--
+      <dd>
+        <a href="#" data-id="01" data-url="backend/set/user/info.html" data-type="tabAdd" class="nav-menu-item">基本资料</a>
+      </dd>
+      -->
+      <dd>
+        <a href="#" data-id="02" data-url="backend/set/user/password.html" data-type="tabAdd" class="nav-menu-item">修改密码</a>
+      </dd>
+      <hr>
+      <dd style="text-align: center;">
+        <a onclick="logout()">退出</a>
+      </dd>
+    </dl>
+  </li>
+</ul>
+</body>
+<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+//打开默认页
+var tabs = [
+  { id: '12', uri: 'backend/t_log_db_connected/t_log_db_connected_list.html', title: '数据库连接记录' }
+]
+</script>
+
+</html>

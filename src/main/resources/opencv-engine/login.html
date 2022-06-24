@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>litongjava-jfinal-web-cms</title>
+<link rel="stylesheet" href="css/icons/css/litong-icons.css">
+<link rel="stylesheet" href="css/login.css">
+<script src="js/config.js"></script>
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="node_modules/aes-js/index.js"></script>
+<script src="js/encrypt.js"></script>
+<script src="js/user.js"></script>
+</head>
+
+<script type="text/javascript">
+document.title = projectTitle;
+
+$(() => {
+  $('#btnLogin').on('click', this.doLogin.bind(this));
+  saveToSessionStorage({});
+  $('input').on('keyup', function(event) {
+    if(event.keyCode === 13) doLogin();
+  });
+});
+
+async function doLogin() {
+  const name = $('.login-name').val();
+  const password = $('.login-password').val();
+  if(!name || !password) {
+    alert("请输入登录信息");
+    return;
+  }
+  const encryptPwd = encrypt(password);
+  var loginAjax = $.ajax({
+    timeout: 3000,
+    url: projectName + "/api/users/login",
+    type: 'POST',
+    data: {
+      name: name,
+      password: encryptPwd.text,
+      key: encryptPwd.key
+    },
+    success: (data, status, res) => {
+      const id = res.getResponseHeader("X-LT-Set-User-Token");
+      if(id) {
+        saveToSessionStorage({ id: id });
+        new Promise((resolve, reject) => {
+          getMine($, resolve)
+        }).then(() => {
+          window.location.href = window.location.origin + projectName;
+        });
+      } else {
+        alert('用户名或密码不正确');
+      }
+    },
+    //  complete: function(XMLHttpRequest, status) { //请求完成后最终执行参数
+    //    if(status == 'timeout') { //超时,status还有success,error等值的情况
+    //      loginAjax.abort();　　　　　
+    //      alert("登录超时");　　　　
+    //    }　　
+    //  },
+    error: () => {
+      alert('登录超时');
+    }
+  });
+}
+</script>
+
+<body>
+<div class="login-background">
+  <div class="login-box">
+    <div class="login-font">
+      <img class="cctv-logo" src="theme/msalogo.png">
+      <div class="font">
+        <div style="font-size: 1.25em;text-align: center; font-weight: bold;">litongjava</div>
+        <div id='loginTitle' style="font-size: 1.1em;text-align: center; font-weight: bold;margin-top: 8px;"></div>
+      </div>
+    </div>
+    <div class="form">
+      <div class="title">欢迎登录</div>
+      <div class="icon-input">
+        <i class="lti-user"></i>
+        <input placeholder="用户名" class="login-name">
+      </div>
+      <div class="icon-input">
+        <i class="lti-key"></i>
+        <input placeholder="密码" type="password" class="login-password">
+      </div>
+      <div style="text-align: center;flex: 1;display: flex;align-items: center;justify-content: center;">
+        <button type="button" id="btnLogin">登录</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script type="text/javascript">
+//设置登陆界面的显示
+document.getElementById('loginTitle').innerText = projectTitle;
+</script>
+
+</html>
